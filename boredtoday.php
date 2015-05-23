@@ -126,7 +126,7 @@ $longopts  = array(
     "location::",
 );
 
-//Array full of  intro text. Mapped as numbers to text
+//Array full of intro text. 
 $prefaceText = array("Have you considered: ",
 		    "Are you interested in: ",
 		    "Want to check out: ",
