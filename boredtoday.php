@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Yelp API v2.0 code sample.
@@ -139,3 +138,22 @@ $term = $options['term'] ?: '';
 $location = $options['location'] ?: '';
 query_api($term, $location);
 ?>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Coday15team2 by malna1r</title>
+
+    <link rel="stylesheet" href="boredtoday.css">
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="boredtoday.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  </head>
+  <body>
+    <h1>Bored Today? Search for Something to Do</h1>
+    <div id="map-canvas"></div>
+  </body>
+</html>
