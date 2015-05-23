@@ -131,7 +131,11 @@ $prefaceText = array("Have you considered: ",
 		    "Want to check out: ",
 		    "Try: ",
 		    "You should hit up: ",
-		    "Are you bored enough to go to: ");
+		    "Are you bored enough to go to: "
+		    "What about: ",
+		    "Have you thought of: ",
+		    "Ever been to: ",
+                    "Consider: ");
     
 $options = getopt("", $longopts);
 $term = $options['term'] ?: '';
