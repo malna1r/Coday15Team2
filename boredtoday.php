@@ -106,33 +106,17 @@ function get_business_name($business_id) {
  */
 function query_api($term, $location) {     
     $response = json_decode(search($term, $location));
-    $business_id = $response->businesses[0]->id;
-    
-    print sprintf(
-        "%d businesses found, querying business info for the top result \"%s\"\n\n",         
-        count($response->businesses),
-        $business_id
-    );
-    
-     $response = get_business_name($business_id);
-     $json = json_decode($response);
-     $name = $json->name;
-     $rating = $json->rating;
-   	// $array = explode( ",", $response);
-   	// $bool = true;
-   	// foreach ($array as $line) {
-   	// 	if(strpos($line, "name")!=false &&$bool) {
-   	// 		$name = substr($line, strpos($line, "name")+6);
-   	// 		$bool = false;
-   	// 	}
-   	// }
-    
-    print sprintf("Result for business \"%s\" found:\n", $business_id);
+    for($i =0; $i<$GLOBALS['SEARCH_LIMIT']; $i++) {
+	    $business_id = $response->businesses[$i]->id;
+	    $responsee = get_business_name($business_id);
+	    $json = json_decode($responsee);
+	     $name = $json->name;
+	     $rating = $json->rating;
     ?>
     	<p> <?= $name ?> </p>
     	<p> <?= $rating ?> </p>
-    	<?php 
-    
+    <?php 
+    }
 }
 /**
  * User input is handled here 
