@@ -125,6 +125,14 @@ $longopts  = array(
     "term::",
     "location::",
 );
+
+//Array full of  intro text. Mapped as numbers to text
+$prefaceText  array("Have you considered: ",
+		    "Are you interested in: ",
+		    "Want to check out: ",
+		    "Try: ",
+		    "You should hit up: ",
+		    "Are you bored enough to go to: ");
     
 $options = getopt("", $longopts);
 $term = $options['term'] ?: '';
