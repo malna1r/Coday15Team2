@@ -138,7 +138,7 @@ function query_api($term, $location) {
 
 	$address = str_replace(" ", '%20', $address);
 	
-	$url = "https://www.google.com/maps/embed/v1/place?q=".$address."&key=AIzaSyDunxkbh0Nr7LiIhQ7aDdxGH-EZWDzLaS8&maptype=satellite";
+	$url = "https://www.google.com/maps/embed/v1/place?q=".$address."&key=AIzaSyDunxkbh0Nr7LiIhQ7aDdxGH-EZWDzLaS8";
 	?>
 <iframe width="600" height="450" frameborder="0" style="border:0" src=<?=$url?>></iframe>
 <?php
