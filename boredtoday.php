@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Coday15team2 by malna1r</title>
+    <title>Bored Today</title>
 
     <link rel="stylesheet" href="boredtoday.css">
     <script src="https://maps.googleapis.com/maps/api/js"></script>
@@ -139,11 +139,7 @@ function query_api($term, $location) {
     $img = $json->image_url;
     $location = json_decode(json_encode($location, true));
     $add = $location->display_address;
-    ?>
-        <p><?= $name ?></p>
-        <img src=<?= $img ?>>
 
-    <?php
     foreach ($add as $ad) {
         if(is_null($address)) {
             $address = $ad;
@@ -155,7 +151,13 @@ function query_api($term, $location) {
     
     $url = "https://www.google.com/maps/embed/v1/place?q=".$address."&key=AIzaSyDunxkbh0Nr7LiIhQ7aDdxGH-EZWDzLaS8";
     ?>
+
 <iframe width="600" height="450" frameborder="0" style="border:0" src=<?=$url?>></iframe>
+
+<div id="business">
+            <p><?= $name ?></p>
+            <img src=<?= $img ?>>
+        </div>
 <?php
 }
 /**
