@@ -172,6 +172,5 @@ query_api($term, $location);
   </head>
   <body>
     <h1>Bored Today? Search for Something to Do</h1>
-    <div id="map-canvas"></div>
   </body>
 </html>
