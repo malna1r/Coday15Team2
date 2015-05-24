@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Yelp API v2.0 code sample.
@@ -17,7 +18,7 @@
  * `php sample.php --term="bars" --location="San Francisco, CA"`
  */
 // Enter the path that the oauth library is in relation to the php file
-require_once('OAuth.php');
+require_once('lib/OAuth.php');
 // Set your OAuth credentials here  
 // These credentials can be obtained from the 'Manage API Access' page in the
 // developers documentation (http://www.yelp.com/developers)
@@ -27,8 +28,9 @@ $TOKEN = 'Qq0sE3x5OP3Pe-znqxSlXX4gbJi8dPQ9';
 $TOKEN_SECRET = 'etRWM4Tjqbwh7b8bv-Z_OSeKrQQ';
 $API_HOST = 'api.yelp.com';
 $DEFAULT_TERM = 'attraction';
-$DEFAULT_LOCATION = 'Seattle';
-$SEARCH_LIMIT = 5;
+$country=file_get_contents('http://api.hostip.info/get_html.php?ip=');
+$DEFAULT_LOCATION = substr($country, strpos($country, "City")+6, strpos($country, "City")-strpos($country, "IP")-2);
+$SEARCH_LIMIT = 20;
 $SEARCH_PATH = '/v2/search/';
 $BUSINESS_PATH = '/v2/business/';
 /** 
@@ -105,17 +107,24 @@ function get_business_name($business_id) {
  */
 function query_api($term, $location) {     
     $response = json_decode(search($term, $location));
+    $ids = array();
     for($i =0; $i<$GLOBALS['SEARCH_LIMIT']; $i++) {
-	    $business_id = $response->businesses[$i]->id;
-	    $responsee = get_business_name($business_id);
-	    $json = json_decode($responsee);
-	     $name = $json->name;
-	     $rating = $json->rating;
-    ?>
-    	<p> <?= $name ?> </p>
-    	<p> <?= $rating ?> </p>
-    <?php 
+    	$id =$response->businesses[$i]->id;
+	    array_push($ids, $id); 
+		
     }
+    $num =mt_rand(0, count($ids)-1);
+    print($num);
+    $responsee = get_business_name($ids[$num]);
+	$json = json_decode($responsee);
+    $name = $json->name;
+	$rating = $json->rating;
+	?>
+		<p><?= $name ?></p>
+	<?php
+	
+
+	
 }
 /**
  * User input is handled here 
@@ -124,18 +133,6 @@ $longopts  = array(
     "term::",
     "location::",
 );
-
-//Array full of intro text. 
-$prefaceText = array("Have you considered: ",
-		    "Are you interested in: ",
-		    "Want to check out: ",
-		    "Try: ",
-		    "You should hit up: ",
-		    "Are you bored enough to go to: "
-		    "What about: ",
-		    "Have you thought of: ",
-		    "Ever been to: ",
-                    "Consider: ");
     
 $options = getopt("", $longopts);
 $term = $options['term'] ?: '';
@@ -148,7 +145,7 @@ query_api($term, $location);
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Bored Today</title>
+    <title>Coday15team2 by malna1r</title>
 
     <link rel="stylesheet" href="boredtoday.css">
     <script src="https://maps.googleapis.com/maps/api/js"></script>
