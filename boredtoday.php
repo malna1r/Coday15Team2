@@ -119,12 +119,16 @@ function query_api($term, $location) {
 	$json = json_decode($responsee);
     $name = $json->name;
 	$rating = $json->rating;
+	$location = $json->location;
+	$location = json_decode(json_encode($location, true));
+	$add = $location->display_address;
 	?>
 		<p><?= $name ?></p>
-	<?php
-	
 
-	
+	<?php
+	foreach ($add as $ad) {
+		$address = $address." ".$ad;
+	}
 }
 /**
  * User input is handled here 
