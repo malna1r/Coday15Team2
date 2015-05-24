@@ -120,10 +120,12 @@ function query_api($term, $location) {
     $name = $json->name;
 	$rating = $json->rating;
 	$location = $json->location;
+	$img = $json->image_url;
 	$location = json_decode(json_encode($location, true));
 	$add = $location->display_address;
 	?>
 		<p><?= $name ?></p>
+		<img src=<?= $img ?>>
 
 	<?php
 	foreach ($add as $ad) {
