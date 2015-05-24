@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Coday15team2 by malna1r</title>
+
+    <link rel="stylesheet" href="boredtoday.css">
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="boredtoday.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  </head>
+  <body>
+    <h1>Bored Today? Search for Something to Do</h1>
 
 <?php
 /**
@@ -33,6 +48,7 @@ $DEFAULT_LOCATION = substr($country, strpos($country, "City")+6, strpos($country
 $SEARCH_LIMIT = 20;
 $SEARCH_PATH = '/v2/search/';
 $BUSINESS_PATH = '/v2/business/';
+$url = "";
 /** 
  * Makes a request to the Yelp API and returns the response
  * 
@@ -109,37 +125,36 @@ function query_api($term, $location) {
     $response = json_decode(search($term, $location));
     $ids = array();
     for($i =0; $i<$GLOBALS['SEARCH_LIMIT']; $i++) {
-    	$id =$response->businesses[$i]->id;
-	    array_push($ids, $id); 
-		
+        $id =$response->businesses[$i]->id;
+        array_push($ids, $id); 
+        
     }
     $num =mt_rand(0, count($ids)-1);
     print($num);
     $responsee = get_business_name($ids[$num]);
-	$json = json_decode($responsee);
+    $json = json_decode($responsee);
     $name = $json->name;
-	$rating = $json->rating;
-	$location = $json->location;
-	$img = $json->image_url;
-	$location = json_decode(json_encode($location, true));
-	$add = $location->display_address;
-	?>
-		<p><?= $name ?></p>
-		<img src=<?= $img ?>>
+    $rating = $json->rating;
+    $location = $json->location;
+    $img = $json->image_url;
+    $location = json_decode(json_encode($location, true));
+    $add = $location->display_address;
+    ?>
+        <p><?= $name ?></p>
+        <img src=<?= $img ?>>
 
-	<?php
-	foreach ($add as $ad) {
-		if(is_null($address)) {
-			$address = $ad;
-		}else {
-		$address = $address."'%2C%'".$ad;
-		}
-	}
-
-	$address = str_replace(" ", '%20', $address);
-	
-	$url = "https://www.google.com/maps/embed/v1/place?q=".$address."&key=AIzaSyDunxkbh0Nr7LiIhQ7aDdxGH-EZWDzLaS8";
-	?>
+    <?php
+    foreach ($add as $ad) {
+        if(is_null($address)) {
+            $address = $ad;
+        }else {
+        $address = $address."'%2C%'".$ad;
+        }
+    }
+    $address = str_replace(" ", '%20', $address);
+    
+    $url = "https://www.google.com/maps/embed/v1/place?q=".$address."&key=AIzaSyDunxkbh0Nr7LiIhQ7aDdxGH-EZWDzLaS8";
+    ?>
 <iframe width="600" height="450" frameborder="0" style="border:0" src=<?=$url?>></iframe>
 <?php
 }
@@ -156,21 +171,5 @@ $term = $options['term'] ?: '';
 $location = $options['location'] ?: '';
 query_api($term, $location);
 ?>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Coday15team2 by malna1r</title>
-
-    <link rel="stylesheet" href="boredtoday.css">
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script src="boredtoday.js" type="text/javascript"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  
-  </head>
-  <body>
-    <h1>Bored Today? Search for Something to Do</h1>
   </body>
 </html>
