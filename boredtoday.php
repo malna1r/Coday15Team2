@@ -129,8 +129,19 @@ function query_api($term, $location) {
 
 	<?php
 	foreach ($add as $ad) {
-		$address = $address." ".$ad;
+		if(is_null($address)) {
+			$address = $ad;
+		}else {
+		$address = $address."'%2C%'".$ad;
+		}
 	}
+
+	$address = str_replace(" ", '%20', $address);
+	
+	$url = "https://www.google.com/maps/embed/v1/place?q=".$address."&key=AIzaSyDunxkbh0Nr7LiIhQ7aDdxGH-EZWDzLaS8&maptype=satellite";
+	?>
+<iframe width="600" height="450" frameborder="0" style="border:0" src=<?=$url?>></iframe>
+<?php
 }
 /**
  * User input is handled here 
